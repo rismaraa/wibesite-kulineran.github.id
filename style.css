@@ -12,7 +12,8 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-body { background-color: var(--bg-body); color: var(--text-main); }
+html { overflow-x: hidden; }
+body { background-color: var(--bg-body); color: var(--text-main); min-width: 320px; }
 
 /* AUTH */
 #auth-page { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); padding: 20px; }
@@ -116,3 +117,127 @@ body { background-color: var(--bg-body); color: var(--text-main); }
 .box-card { background: var(--bg-card); padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); }
 .text-center { text-align: center; }
 .text-warning { color: #f59e0b; }
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1200px) {
+    #dashboard-page { grid-template-columns: 220px minmax(0, 1fr); gap: 16px; padding: 16px; }
+    .right-sidebar { display: none; }
+    .sidebar { height: calc(100vh - 32px); top: 16px; }
+}
+
+@media (max-width: 768px) {
+    #auth-page { align-items: flex-start; padding: 16px; }
+    .auth-card { margin: auto 0; padding: 28px 20px; }
+
+    #dashboard-page { display: none; grid-template-columns: 1fr; gap: 0; padding: 0; }
+    .sidebar { position: sticky; top: 0; z-index: 20; height: auto; border-radius: 0; padding: 12px 16px 10px; gap: 10px; }
+    .logo-area { display: flex; align-items: center; gap: 8px; font-size: 17px; }
+    .logo-area span { display: none; }
+    .nav-menu { flex-direction: row; gap: 4px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .nav-menu::-webkit-scrollbar { display: none; }
+    .nav-item { flex: 0 0 auto; }
+    .nav-item a { justify-content: center; padding: 9px 11px; font-size: 12px; gap: 6px; white-space: nowrap; }
+    .nav-item a i { font-size: 14px; }
+    .btn-post { position: absolute; top: 12px; right: 16px; width: 42px; height: 38px; padding: 0; font-size: 0; }
+    .btn-post i { font-size: 16px; }
+    .user-card { display: none; }
+
+    .main-content { padding: 16px; gap: 16px; min-width: 0; }
+    .categories { margin-top: 10px; gap: 14px; }
+    .category-item { font-size: 10px; }
+    .category-icon { width: 44px; height: 44px; font-size: 17px; }
+    .feed-container { grid-template-columns: 1fr; gap: 14px; }
+    .food-card img { height: clamp(180px, 52vw, 280px); }
+
+    .profile-card { padding: 18px; gap: 14px; }
+    .profile-avatar-box { width: 70px; height: 70px; flex: 0 0 70px; }
+    .profile-details h2 { font-size: 20px; overflow-wrap: anywhere; }
+    .profile-email { overflow-wrap: anywhere; }
+    .box-card { padding: 16px; }
+
+    .modal-overlay { align-items: flex-end; padding: 0; }
+    .modal-content { max-height: 92vh; padding: 20px 16px; border-radius: 16px 16px 0 0; }
+    .modal-header img { height: clamp(160px, 48vw, 240px); }
+    .comment-input-box { flex-wrap: wrap; }
+    .comment-input-box .form-input-text { flex: 1 1 100%; }
+    .comment-input-box .btn-primary { flex: 1 1 100%; }
+}
+
+@media (min-width: 769px) and (max-width: 1000px) {
+    .feed-container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .food-card img { height: 160px; }
+    .nav-item a { padding-left: 10px; padding-right: 10px; }
+}
+
+@media (max-width: 420px) {
+    .auth-card .logo { font-size: 22px; }
+    .main-content { padding: 12px; }
+    .nav-item a { padding-left: 8px; padding-right: 8px; }
+    .nav-item a i { display: none; }
+    .profile-card { align-items: flex-start; }
+    .upload-badge { width: 25px; height: 25px; }
+}
+
+/* Desktop */
+#dashboard-page {
+    display: none;
+    grid-template-columns: 240px 1fr 300px;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    #dashboard-page {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .right-sidebar {
+        display: none;
+    }
+}
+
+/* HP */
+@media (max-width: 768px) {
+    #dashboard-page {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 0;
+        height: auto;
+        border-radius: 0;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+
+    .feed-container {
+        grid-template-columns: 1fr;
+    }
+
+    .food-card img {
+        height: clamp(180px, 52vw, 280px);
+    }
+
+    .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .modal-content {
+        max-height: 92vh;
+        border-radius: 16px 16px 0 0;
+    }
+}
