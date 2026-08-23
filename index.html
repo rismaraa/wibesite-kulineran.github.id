@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KULINERAN</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth-page">
+        <div class="auth-card" id="loginCard">
+            <div class="logo"><i class="fa-solid fa-utensils"></i> KULINERAN</div>
+            <p class="subtitle">Masuk untuk menjelajah & berbagi kuliner</p>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="loginName" placeholder="Contoh: Budi Santoso" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" placeholder="Contoh: budis" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="Contoh: budi@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary">Masuk Aplikasi</button>
+            </form>
+            <p class="auth-toggle">Belum punya akun? <a href="#" onclick="toggleAuthMode('register')">Buat Akun Baru</a></p>
+        </div>
+
+        <div class="auth-card" id="registerCard" style="display: none;">
+            <div class="logo"><i class="fa-solid fa-user-plus"></i> Buat Akun Baru</div>
+            <p class="subtitle">Bergabung dengan komunitas kulineran</p>
+            
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="regFullName" placeholder="Masukkan nama..." required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="regUsername" placeholder="Buat username..." required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="Masukkan email..." required>
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Daftar Sekarang</button>
+            </form>
+            <p class="auth-toggle">Sudah punya akun? <a href="#" onclick="toggleAuthMode('login')">Masuk di sini</a></p>
+        </div>
+    </div>
+
+    <div id="dashboard-page">
+        
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i class="fa-solid fa-store"></i> KULINERAN
+                <span>Jelajah Rasa, Temukan Selera</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="switchTab('beranda', this)">
+                    <a href="#"><i class="fa-solid fa-house"></i> Beranda Utama</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('pesan', this)">
+                    <a href="#"><i class="fa-solid fa-paper-plane"></i> Pesan (<span id="unreadChatCount">0</span>)</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('notifikasi', this)">
+                    <a href="#"><i class="fa-solid fa-bell"></i> Notifikasi (<span id="notifCount">0</span>)</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('profil', this)">
+                    <a href="#"><i class="fa-solid fa-user"></i> Profil Saya</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('pengaturan', this)">
+                    <a href="#"><i class="fa-solid fa-gear"></i> Pengaturan</a>
+                </li>
+            </ul>
+
+            <button class="btn-post" onclick="openCreateModal()"><i class="fa-solid fa-camera"></i> Posting Sesuatu</button>
+
+            <div class="user-card" onclick="switchTab('profil', document.querySelectorAll('.nav-item')[3])">
+                <img id="sidebarAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="avatar-small">
+                <div style="overflow: hidden;">
+                    <strong id="displayUsername">User Name</strong>
+                    <p id="displayHandle" style="font-size:11px; color: var(--text-muted);">@username</p>
+                </div>
+                <button class="btn-logout" onclick="event.stopPropagation(); handleLogout()" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div id="main-feed-section">
+                <div class="top-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Cari outlet atau postingan..." oninput="filterData()">
+                    </div>
+                </div>
+
+                <div class="categories">
+                    <div class="category-item active" onclick="selectCategory(this, 'semua')">
+                        <div class="category-icon">🍽️</div>Semua
+                    </div>
+                    <div class="category-item" onclick="selectCategory(this, 'tradisional')">
+                        <div class="category-icon">🍲</div>Kuliner Tradisional
+                    </div>
+                    <div class="category-item" onclick="selectCategory(this, 'Nasional')">
+                        <div class="category-icon">🍕</div>Kuliner Nasional
+                    </div>
+                    <div class="category-item" onclick="selectCategory(this, 'streetfood')">
+                        <div class="category-icon">🍡</div>Street Food
+                    </div>
+                    <div class="category-item" onclick="selectCategory(this, 'minuman_tradisional')">
+                        <div class="category-icon">🥛</div>Minuman Tradisional
+                    </div>
+                    <div class="category-item" onclick="selectCategory(this, 'minuman_internasional')">
+                        <div class="category-icon">☕</div>Minuman Internasional
+                    </div>
+                </div>
+
+                <div class="feed-container" id="feedContainer"></div>
+            </div>
+
+            <div id="chat-section" class="tab-content" style="display: none;">
+                <div class="box-card text-center" style="padding: 40px;">
+                    <i class="fa-solid fa-comments" style="font-size: 40px; color: var(--text-muted); margin-bottom: 10px;"></i>
+                    <h3>Pesan Masuk</h3>
+                    <p style="color: var(--text-muted); font-size: 13px;">Belum ada percakapan baru saat ini.</p>
+                </div>
+            </div>
+
+            <div id="notif-section" class="tab-content" style="display: none;">
+                <div class="box-card text-center" style="padding: 40px;">
+                    <i class="fa-solid fa-bell-slash" style="font-size: 40px; color: var(--text-muted); margin-bottom: 10px;"></i>
+                    <h3>Notifikasi</h3>
+                    <p style="color: var(--text-muted); font-size: 13px;">Belum ada notifikasi baru untuk Anda.</p>
+                </div>
+            </div>
+
+            <div id="profile-section" class="tab-content" style="display: none;">
+                <div class="profile-card">
+                    <div class="profile-avatar-box">
+                        <img id="profileImageDisplay" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="Profile Avatar">
+                        <label for="profileUploadInput" class="upload-badge" title="Ganti Foto Profil dari Galeri"><i class="fa-solid fa-camera"></i></label>
+                        <input type="file" id="profileUploadInput" accept="image/*" style="display: none;" onchange="uploadProfilePicture(event)">
+                    </div>
+                    <div class="profile-details">
+                        <h2 id="profileFullName">Nama Lengkap</h2>
+                        <p class="profile-username" id="profileUsername">@username</p>
+                        <p class="profile-email"><i class="fa-solid fa-envelope"></i> <span id="profileEmail">email@domain.com</span></p>
+                    </div>
+                </div>
+
+                <div class="user-posts-section">
+                    <h3><i class="fa-solid fa-images"></i> Postingan Saya (<span id="userPostCount">0</span>)</h3>
+                    <div class="feed-container" id="userPostsContainer"></div>
+                </div>
+            </div>
+
+            <div id="settings-section" class="tab-content" style="display: none;">
+                <div class="box-card">
+                    <h3><i class="fa-solid fa-gear"></i> Pengaturan Akun</h3>
+                    <form onsubmit="saveSettings(event)" style="margin-top: 15px;">
+                        <div class="form-group">
+                            <label>Ubah Nama</label>
+                            <input type="text" id="settingName">
+                        </div>
+                        <div class="form-group">
+                            <label>Ubah Email</label>
+                            <input type="email" id="settingEmail">
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: auto; padding: 10px 20px;">Simpan Perubahan</button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="header-profile">
+                <strong>Halo, <span id="profileName">Kulineran</span>!</strong>
+            </div>
+
+            <div class="rekomendasi-box">
+                <h4>Rekomendasi Minggu Ini</h4>
+                <div class="item-list">
+                    <div class="list-card">
+                        <img src="https://3dmdb.com/previews/13037200.jpg" alt="Mie Gacoan">
+                        <div class="list-info">
+                            <h5>Mie Gacoan Cabang Malang Raya</h5>
+                            <span style="font-size: 11px; color: var(--primary);">🔥 Hits Nasional</span>
+                        </div>
+                    </div>
+                    <div class="list-card">
+                        <img src="https://s1-id.alongwalker.co/wp-content/uploads/2024/08/image-menu-richeese-factory-terbaru-2024-lengkap-dengan-harganya-c2149ea27b9c2b61ab42a9d433cbedbd.jpg" alt="Richeese Factory">
+                        <div class="list-info">
+                            <h5>Richeese Factory</h5>
+                            <span style="font-size: 11px; color: var(--primary);">🌶️ Pedas Level</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('detailModal')" title="Kembali / Tutup">&times;</button>
+            <div class="modal-header">
+                <img id="modalImg" src="" alt="Outlet">
+                <h2 id="modalTitle">Title</h2>
+            </div>
+
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-map-location-dot" style="color: var(--primary);"></i> Peta Lokasi Google Maps</h4>
+                <div class="gmaps-container" style="margin-top: 8px;">
+                    <iframe id="gmapsIframe" width="100%" height="220" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-star text-warning"></i> Beri Rating & Ulasan</h4>
+                <div class="rating-input-box">
+                    <select id="userRatingSelect" class="form-input-select" style="width: auto; display: inline-block;">
+                        <option value="5">⭐⭐⭐⭐⭐ (5.0)</option>
+                        <option value="4">⭐⭐⭐⭐ (4.0)</option>
+                        <option value="3">⭐⭐⭐ (3.0)</option>
+                        <option value="2">⭐⭐ (2.0)</option>
+                        <option value="1">⭐ (1.0)</option>
+                    </select>
+                </div>
+                <div class="comment-input-box" style="display: flex; gap: 8px; margin-top: 10px;">
+                    <input type="text" id="commentInput" placeholder="Tulis komentar ulasan kamu..." class="form-input-text">
+                    <button class="btn-primary" onclick="submitComment()" style="width: auto; margin:0;">Kirim</button>
+                </div>
+                <div class="comments-list" id="modalCommentsList" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="createModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeCreateModal()" title="Kembali / Tutup">&times;</button>
+            <h3 style="margin-bottom: 15px; color: var(--primary);"><i class="fa-solid fa-utensils"></i> Pamerkan Makanan Kamu</h3>
+            
+            <form id="createPostForm" onsubmit="handleCreatePost(event)">
+                <div class="form-group">
+                    <label>Nama Tempat Makan / Judul Makanan</label>
+                    <input type="text" id="postTitle" placeholder="Contoh: Mie Gacoan Sawojajar" required>
+                </div>
+                <div class="form-group">
+                    <label>Kategori Kuliner</label>
+                    <select id="postCategory" class="form-input-select" required>
+                        <option value="tradisional">Kuliner Tradisional</option>
+                        <option value="internasional">Kuliner Internasional</option>
+                        <option value="streetfood">Street Food</option>
+                        <option value="minuman_tradisional">Minuman Tradisional</option>
+                        <option value="minuman_internasional">Minuman Internasional</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Foto Makanan</label>
+                    
+                    <div class="upload-options" style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+                        <label for="postGalleryInput" class="btn-secondary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-image"></i> Ambil dari Galeri
+                        </label>
+                        <input type="file" id="postGalleryInput" accept="image/*" style="display: none;" onchange="handlePostGalleryUpload(event)">
+                        
+                        <button type="button" class="btn-secondary" onclick="startPostCamera()"><i class="fa-solid fa-video"></i> Buka Kamera</button>
+                        <button type="button" id="snapPostBtn" class="btn-secondary" onclick="takePostSnapshot()" style="display:none; background:var(--primary); color:white;"><i class="fa-solid fa-camera"></i> Ambil Foto</button>
+                    </div>
+
+                    <div class="camera-container" style="margin-bottom: 8px;">
+                        <video id="postCameraVideo" autoplay playsinline style="display:none; width:100%; border-radius:8px; height:200px; object-fit:cover; background:#000;"></video>
+                        <canvas id="postCameraCanvas" style="display:none;"></canvas>
+                    </div>
+
+                    <div id="postImagePreviewContainer" style="display: none; margin-bottom: 8px;">
+                        <img id="postImagePreview" src="" alt="Preview Makanan" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; border: 2px solid var(--primary);">
+                    </div>
+
+                    <input type="url" id="postImage" placeholder="Atau tempel Link / URL Gambar Makanan..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>Ulasan / Deskripsi Makanan</label>
+                    <textarea id="postDesc" rows="3" class="form-input-text" placeholder="Ceritakan rasa, porsi, dan kepuasan kamu saat makan di sini..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Pamerkan</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
