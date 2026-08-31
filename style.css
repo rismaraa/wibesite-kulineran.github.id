@@ -76,12 +76,17 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
     flex: 0 0 auto;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     gap: 5px;
     cursor: pointer;
     font-size: 11px;
     font-weight: 600;
-    white-space: nowrap;
-    min-width: 80px;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+    min-width: 78px;
+    max-width: 110px;
+    color: var(--text-main);
 }
 .category-icon {
     width: 48px;
@@ -94,6 +99,7 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
     box-shadow: var(--shadow);
     font-size: 18px;
     border: 2px solid transparent;
+    flex-shrink: 0;
 }
 .category-item.active .category-icon { border-color: var(--primary); background-color: #ecfdf5; }
 .category-item.active { color: var(--primary); }
@@ -202,7 +208,7 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
         padding: 6px 2px 10px;
         margin-top: 8px;
         width: 100%;
-        min-height: 76px;
+        min-height: 78px;
         align-items: flex-start;
         background: transparent;
         scrollbar-width: none;
@@ -210,11 +216,15 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
     }
     .categories::-webkit-scrollbar { display: none; }
     .category-item {
-        font-size: 10px;
-        min-width: 82px;
+        font-size: 9.5px;
+        min-width: 76px;
+        max-width: 96px;
         flex: 0 0 auto;
+        line-height: 1.15;
+        text-align: center;
+        white-space: normal;
     }
-    .category-icon { width: 42px; height: 42px; font-size: 16px; }
+    .category-icon { width: 40px; height: 40px; font-size: 15px; }
     .feed-container { grid-template-columns: 1fr; gap: 14px; }
     .food-card img { height: clamp(180px, 52vw, 280px); }
 
