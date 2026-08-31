@@ -73,20 +73,34 @@
             </div>
 
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="switchTab('beranda', this)">
-                    <a href="#"><i class="fa-solid fa-house"></i> Beranda Utama</a>
-                </li>
-                <li class="nav-item" onclick="switchTab('pesan', this)">
-                    <a href="#"><i class="fa-solid fa-paper-plane"></i> Pesan (<span id="unreadChatCount">0</span>)</a>
-                </li>
-                <li class="nav-item" onclick="switchTab('notifikasi', this)">
-                    <a href="#"><i class="fa-solid fa-bell"></i> Notifikasi (<span id="notifCount">0</span>)</a>
-                </li>
-                <li class="nav-item" onclick="switchTab('profil', this)">
-                    <a href="#"><i class="fa-solid fa-user"></i> Profil Saya</a>
-                </li>
-                <li class="nav-item" onclick="switchTab('pengaturan', this)">
-                    <a href="#"><i class="fa-solid fa-gear"></i> Pengaturan</a>
+                <li class="nav-item nav-item--main active" onclick="switchTab('beranda', this)">
+                    <div class="nav-main-row">
+                        <button class="nav-hamburger" type="button" aria-label="Buka menu lain" onclick="event.stopPropagation(); toggleQuickMenu();">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+
+                        <a href="#" class="home-only-link"><i class="fa-solid fa-house"></i></a>
+                    </div>
+
+                    <div class="quick-menu" id="quickMenu">
+                        <button class="quick-menu-item" type="button" data-tab="pesan" onclick="event.stopPropagation(); switchTab('pesan', this); closeQuickMenu();">
+                            <i class="fa-solid fa-paper-plane"></i> Pesan (<span id="unreadChatCount">0</span>)
+                        </button>
+
+                        <button class="quick-menu-item" type="button" data-tab="notifikasi" onclick="event.stopPropagation(); switchTab('notifikasi', this); closeQuickMenu();">
+                            <i class="fa-solid fa-bell"></i> Notifikasi (<span id="notifCount">0</span>)
+                        </button>
+
+                        <button class="quick-menu-item" type="button" data-tab="profil" onclick="event.stopPropagation(); switchTab('profil', this); closeQuickMenu();">
+                            <i class="fa-solid fa-user"></i> Profil Saya
+                        </button>
+
+                        <button class="quick-menu-item" type="button" data-tab="pengaturan" onclick="event.stopPropagation(); switchTab('pengaturan', this); closeQuickMenu();">
+                            <i class="fa-solid fa-gear"></i> Pengaturan
+                        </button>
+                    </div>
                 </li>
             </ul>
 
@@ -218,6 +232,7 @@
         </aside>
 
     </div>
+    
 
     <div class="modal-overlay" id="detailModal">
         <div class="modal-content">
