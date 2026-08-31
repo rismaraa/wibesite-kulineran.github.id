@@ -277,62 +277,38 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
 .nav-main-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.home-only-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    color: var(--text-main);
-    text-decoration: none;
-    font-size: 18px;
-    background: transparent;
-}
-
-.nav-item.active .home-only-link,
-.home-only-link:hover {
-    background-color: var(--primary);
-    color: white;
+    gap: 12px;
 }
 
 .nav-hamburger {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    border: none;
     border-radius: 10px;
-    background: #f8fafc;
+    background: #f5f5f5;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 4px;
     cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.nav-hamburger:hover {
-    background: #ecfdf5;
-    border-color: var(--primary);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
 }
 
 .nav-hamburger span {
-    display: block;
     width: 18px;
     height: 2px;
-    background: var(--text-main);
-    border-radius: 999px;
+    background: #1f2937;
+    border-radius: 10px;
+    display: block;
 }
 
 .quick-menu {
     display: none;
     flex-direction: column;
     gap: 8px;
-    margin-left: 48px;
+    margin-left: 46px;
+    margin-top: 8px;
 }
 
 .quick-menu.open {
@@ -340,24 +316,27 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
 }
 
 .quick-menu-item {
-    width: 100%;
-    border: 1px solid var(--border-color);
-    background: #f8fafc;
-    color: var(--text-main);
-    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
     padding: 10px 12px;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-weight: 600;
-    font-size: 12px;
-    text-align: left;
 }
 
-.quick-menu-item:hover,
-.quick-menu-item.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
+.quick-menu-item:hover {
+    background: #10b981;
+    color: #fff;
+    border-color: #10b981;
+}
+
+.quick-menu-item.post-item {
+    background: #ecfdf5;
+    color: #059669;
+    border-color: #a7f3d0;
 }

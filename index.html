@@ -80,11 +80,13 @@
                             <span></span>
                             <span></span>
                         </button>
-
-                        <a href="#" class="home-only-link"><i class="fa-solid fa-house"></i></a>
                     </div>
 
                     <div class="quick-menu" id="quickMenu">
+                        <button class="quick-menu-item post-item" type="button" onclick="event.stopPropagation(); openCreateModal(); closeQuickMenu();">
+                            <i class="fa-solid fa-camera"></i> Posting Sesuatu
+                        </button>
+
                         <button class="quick-menu-item" type="button" data-tab="pesan" onclick="event.stopPropagation(); switchTab('pesan', this); closeQuickMenu();">
                             <i class="fa-solid fa-paper-plane"></i> Pesan (<span id="unreadChatCount">0</span>)
                         </button>
@@ -103,8 +105,6 @@
                     </div>
                 </li>
             </ul>
-
-            <button class="btn-post" onclick="openCreateModal()"><i class="fa-solid fa-camera"></i> Posting Sesuatu</button>
 
             <div class="user-card" onclick="switchTab('profil', document.querySelectorAll('.nav-item')[3])">
                 <img id="sidebarAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="avatar-small">
