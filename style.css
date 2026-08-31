@@ -53,12 +53,15 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
 .btn-logout { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 16px; margin-left: auto; }
 
 /* KONTEN UTAMA */
-.main-content { display: flex; flex-direction: column; gap: 20px; }
+.main-content { display: flex; flex-direction: column; gap: 0; }
 .search-box { position: relative; width: 100%; }
 .search-box input { width: 100%; padding: 12px 20px 12px 40px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--bg-card); outline: none; }
 .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
 .categories {
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 8px;
     display: flex;
     gap: 10px;
     overflow-x: auto;
@@ -174,7 +177,7 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
 
     .main-content {
         padding: 16px;
-        gap: 16px;
+        gap: 0;
         min-width: 0;
         width: 100%;
     }
@@ -183,6 +186,9 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
         min-width: 0;
     }
     .categories {
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 8px;
         display: flex;
         gap: 10px;
         overflow-x: auto;
@@ -425,4 +431,45 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
     background: #ecfdf5;
     color: #059669;
     border-color: #a7f3d0;
+}
+
+/* OVERRIDE FINAL: hapus ruang kosong di atas kategori di HP */
+#main-feed-section {
+    margin-top: 0 !important;
+}
+
+#main-feed-section .top-bar,
+#main-feed-section .top-bar > * {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#main-feed-section .categories {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+    min-height: auto !important;
+}
+
+#main-feed-section .category-item {
+    margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+    #main-feed-section {
+        margin-top: 0 !important;
+    }
+
+    #main-feed-section .categories {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 8px !important;
+        min-height: auto !important;
+    }
+
+    .main-content {
+        gap: 0 !important;
+    }
 }
