@@ -117,9 +117,30 @@ function handleLogout() {
 }
 
 // 2. NAVIGASI TAB UTAMA
+function toggleQuickMenu() {
+    const quickMenu = document.getElementById('quickMenu');
+    if (!quickMenu) return;
+    quickMenu.classList.toggle('open');
+}
+
+function closeQuickMenu() {
+    const quickMenu = document.getElementById('quickMenu');
+    if (quickMenu) quickMenu.classList.remove('open');
+}
+
 function switchTab(tabName, element) {
-    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-    if (element) element.classList.add('active');
+    document.querySelectorAll('.quick-menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    if (element && element.classList.contains('quick-menu-item')) {
+        element.classList.add('active');
+    }
+
+    const mainNav = document.querySelector('.nav-item--main');
+    if (mainNav) {
+        mainNav.classList.toggle('active', tabName === 'beranda');
+    }
 
     currentTab = tabName;
 
@@ -135,6 +156,20 @@ function switchTab(tabName, element) {
         document.getElementById('settingEmail').value = currentUserEmail;
     }
 }
+
+document.addEventListener('click', function(event) {
+    const quickMenu = document.getElementById('quickMenu');
+    const menuButton = document.querySelector('.nav-hamburger');
+
+    if (!quickMenu || !menuButton) return;
+
+    const clickedInsideMenu = quickMenu.contains(event.target);
+    const clickedHamburger = menuButton.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedHamburger) {
+        closeQuickMenu();
+    }
+});
 
 // 3. FITUR UNTUK UPLOAD GAMBAR DARI GALERI PADA POSTINGAN
 function handlePostGalleryUpload(event) {
