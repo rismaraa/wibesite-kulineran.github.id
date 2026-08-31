@@ -34,7 +34,13 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
 /* DASHBOARD */
 #dashboard-page { display: none; grid-template-columns: 240px 1fr 300px; min-height: 100vh; gap: 20px; padding: 20px; max-width: 1500px; margin: 0 auto; }
 .sidebar { background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; gap: 20px; box-shadow: var(--shadow); height: calc(100vh - 40px); position: sticky; top: 20px; }
-.logo-area { font-size: 20px; font-weight: 800; color: var(--primary); }
+.header-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 6px;
+}
+.logo-area { font-size: 20px; font-weight: 800; color: var(--primary); display: flex; flex-direction: column; gap: 2px; }
 .logo-area span { display: block; font-size: 11px; color: var(--text-muted); font-weight: normal; }
 .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .nav-item { display: flex; flex-direction: column; gap: 8px; }
