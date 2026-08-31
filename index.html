@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KULINERAN</title>
+    <title>Kulineran Malang - Social Media & Explorer</title>
     
+    <!-- Font Awesome Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS Utama dengan Parameter Versioning untuk Bypass Cache -->
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
+    <!-- NAVBAR HEADER MOBILE (Untuk Layar HP) -->
+    <header class="mobile-navbar">
+        <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Buka Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="mobile-logo">
+            <i class="fa-solid fa-utensils"></i> Kuliner Malang
+        </div>
+    </header>
+
+    <!-- OVERLAY GELAP SAAT MENU MOBILE DIBUKA -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- ================= HALAMAN AUTHENTICATION ================= -->
     <div id="auth-page">
         <div class="auth-card" id="loginCard">
-            <div class="logo"><i class="fa-solid fa-utensils"></i> KULINERAN</div>
+            <div class="logo"><i class="fa-solid fa-utensils"></i> Kuliner Malang</div>
             <p class="subtitle">Masuk untuk menjelajah & berbagi kuliner</p>
             
             <form id="loginForm" onsubmit="handleLogin(event)">
@@ -39,7 +55,7 @@
 
         <div class="auth-card" id="registerCard" style="display: none;">
             <div class="logo"><i class="fa-solid fa-user-plus"></i> Buat Akun Baru</div>
-            <p class="subtitle">Bergabung dengan komunitas kulineran</p>
+            <p class="subtitle">Bergabung dengan komunitas kuliner Malang</p>
             
             <form id="registerForm" onsubmit="handleRegister(event)">
                 <div class="form-group">
@@ -64,49 +80,40 @@
         </div>
     </div>
 
+    <!-- ================= DASHBOARD UTAMA ================= -->
     <div id="dashboard-page">
         
-        <aside class="sidebar">
-            <div class="logo-area">
-                <i class="fa-solid fa-store"></i> KULINERAN
-                <span>Jelajah Rasa, Temukan Selera</span>
+        <!-- SIDEBAR DRAWER (BERGESER PADA MOBILE) -->
+        <aside class="sidebar" id="mainSidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <i class="fa-solid fa-store"></i> Kuliner Social
+                    <span>Malang Hub</span>
+                </div>
+                <button class="close-sidebar-btn" onclick="toggleSidebar()">&times;</button>
             </div>
 
             <ul class="nav-menu">
-                <li class="nav-item nav-item--main active" onclick="switchTab('beranda', this)">
-                    <div class="nav-main-row">
-                        <button class="nav-hamburger" type="button" aria-label="Buka menu lain" onclick="event.stopPropagation(); toggleQuickMenu();">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-
-                    <div class="quick-menu" id="quickMenu">
-                        <button class="quick-menu-item post-item" type="button" onclick="event.stopPropagation(); openCreateModal(); closeQuickMenu();">
-                            <i class="fa-solid fa-camera"></i> Posting Sesuatu
-                        </button>
-
-                        <button class="quick-menu-item" type="button" data-tab="pesan" onclick="event.stopPropagation(); switchTab('pesan', this); closeQuickMenu();">
-                            <i class="fa-solid fa-paper-plane"></i> Pesan (<span id="unreadChatCount">0</span>)
-                        </button>
-
-                        <button class="quick-menu-item" type="button" data-tab="notifikasi" onclick="event.stopPropagation(); switchTab('notifikasi', this); closeQuickMenu();">
-                            <i class="fa-solid fa-bell"></i> Notifikasi (<span id="notifCount">0</span>)
-                        </button>
-
-                        <button class="quick-menu-item" type="button" data-tab="profil" onclick="event.stopPropagation(); switchTab('profil', this); closeQuickMenu();">
-                            <i class="fa-solid fa-user"></i> Profil Saya
-                        </button>
-
-                        <button class="quick-menu-item" type="button" data-tab="pengaturan" onclick="event.stopPropagation(); switchTab('pengaturan', this); closeQuickMenu();">
-                            <i class="fa-solid fa-gear"></i> Pengaturan
-                        </button>
-                    </div>
+                <li class="nav-item active" onclick="switchTab('beranda', this); closeSidebarMobile();">
+                    <a href="#"><i class="fa-solid fa-house"></i> Beranda Utama</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('pesan', this); closeSidebarMobile();">
+                    <a href="#"><i class="fa-solid fa-paper-plane"></i> Pesan (<span id="unreadChatCount">0</span>)</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('notifikasi', this); closeSidebarMobile();">
+                    <a href="#"><i class="fa-solid fa-bell"></i> Notifikasi (<span id="notifCount">0</span>)</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('profil', this); closeSidebarMobile();">
+                    <a href="#"><i class="fa-solid fa-user"></i> Profil Saya</a>
+                </li>
+                <li class="nav-item" onclick="switchTab('pengaturan', this); closeSidebarMobile();">
+                    <a href="#"><i class="fa-solid fa-gear"></i> Pengaturan</a>
                 </li>
             </ul>
 
-            <div class="user-card" onclick="switchTab('profil', document.querySelectorAll('.nav-item')[3])">
+            <button class="btn-post" onclick="openCreateModal(); closeSidebarMobile();"><i class="fa-solid fa-camera"></i> Posting Sesuatu</button>
+
+            <div class="user-card" onclick="switchTab('profil', document.querySelectorAll('.nav-item')[3]); closeSidebarMobile();">
                 <img id="sidebarAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="avatar-small">
                 <div style="overflow: hidden;">
                     <strong id="displayUsername">User Name</strong>
@@ -116,8 +123,10 @@
             </div>
         </aside>
 
+        <!-- KONTEN TENGAH -->
         <main class="main-content">
             
+            <!-- SECTION BERANDA UTAMA -->
             <div id="main-feed-section">
                 <div class="top-bar">
                     <div class="search-box">
@@ -126,6 +135,7 @@
                     </div>
                 </div>
 
+                <!-- CAROUSEL KATEGORI -->
                 <div class="categories">
                     <div class="category-item active" onclick="selectCategory(this, 'semua')">
                         <div class="category-icon">🍽️</div>Semua
@@ -133,8 +143,8 @@
                     <div class="category-item" onclick="selectCategory(this, 'tradisional')">
                         <div class="category-icon">🍲</div>Kuliner Tradisional
                     </div>
-                    <div class="category-item" onclick="selectCategory(this, 'Nasional')">
-                        <div class="category-icon">🍕</div>Kuliner Nasional
+                    <div class="category-item" onclick="selectCategory(this, 'internasional')">
+                        <div class="category-icon">🍕</div>Kuliner Internasional
                     </div>
                     <div class="category-item" onclick="selectCategory(this, 'streetfood')">
                         <div class="category-icon">🍡</div>Street Food
@@ -147,9 +157,11 @@
                     </div>
                 </div>
 
+                <!-- FEED CONTAINER -->
                 <div class="feed-container" id="feedContainer"></div>
             </div>
 
+            <!-- SECTION PESAN -->
             <div id="chat-section" class="tab-content" style="display: none;">
                 <div class="box-card text-center" style="padding: 40px;">
                     <i class="fa-solid fa-comments" style="font-size: 40px; color: var(--text-muted); margin-bottom: 10px;"></i>
@@ -158,6 +170,7 @@
                 </div>
             </div>
 
+            <!-- SECTION NOTIFIKASI -->
             <div id="notif-section" class="tab-content" style="display: none;">
                 <div class="box-card text-center" style="padding: 40px;">
                     <i class="fa-solid fa-bell-slash" style="font-size: 40px; color: var(--text-muted); margin-bottom: 10px;"></i>
@@ -166,11 +179,12 @@
                 </div>
             </div>
 
+            <!-- SECTION PROFIL PENGGUNA -->
             <div id="profile-section" class="tab-content" style="display: none;">
                 <div class="profile-card">
                     <div class="profile-avatar-box">
                         <img id="profileImageDisplay" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="Profile Avatar">
-                        <label for="profileUploadInput" class="upload-badge" title="Ganti Foto Profil dari Galeri"><i class="fa-solid fa-camera"></i></label>
+                        <label for="profileUploadInput" class="upload-badge" title="Ganti Foto Profil"><i class="fa-solid fa-camera"></i></label>
                         <input type="file" id="profileUploadInput" accept="image/*" style="display: none;" onchange="uploadProfilePicture(event)">
                     </div>
                     <div class="profile-details">
@@ -181,11 +195,12 @@
                 </div>
 
                 <div class="user-posts-section">
-                    <h3><i class="fa-solid fa-images"></i> Postingan Saya (<span id="userPostCount">0</span>)</h3>
+                    <h3 style="margin-top: 15px;"><i class="fa-solid fa-images"></i> Postingan Saya (<span id="userPostCount">0</span>)</h3>
                     <div class="feed-container" id="userPostsContainer"></div>
                 </div>
             </div>
 
+            <!-- SECTION PENGATURAN -->
             <div id="settings-section" class="tab-content" style="display: none;">
                 <div class="box-card">
                     <h3><i class="fa-solid fa-gear"></i> Pengaturan Akun</h3>
@@ -205,23 +220,24 @@
 
         </main>
 
+        <!-- SIDEBAR KANAN -->
         <aside class="right-sidebar">
             <div class="header-profile">
-                <strong>Halo, <span id="profileName">Kulineran</span>!</strong>
+                <strong>Halo, <span id="profileName">Arema</span>!</strong>
             </div>
 
             <div class="rekomendasi-box">
                 <h4>Rekomendasi Minggu Ini</h4>
                 <div class="item-list">
                     <div class="list-card">
-                        <img src="https://3dmdb.com/previews/13037200.jpg" alt="Mie Gacoan">
+                        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=100&q=80" alt="Mie Gacoan">
                         <div class="list-info">
-                            <h5>Mie Gacoan Cabang Malang Raya</h5>
-                            <span style="font-size: 11px; color: var(--primary);">🔥 Hits Nasional</span>
+                            <h5>Mie Gacoan Malang</h5>
+                            <span style="font-size: 11px; color: var(--primary);">🔥 Hits Internasional</span>
                         </div>
                     </div>
                     <div class="list-card">
-                        <img src="https://s1-id.alongwalker.co/wp-content/uploads/2024/08/image-menu-richeese-factory-terbaru-2024-lengkap-dengan-harganya-c2149ea27b9c2b61ab42a9d433cbedbd.jpg" alt="Richeese Factory">
+                        <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=100&q=80" alt="Richeese Factory">
                         <div class="list-info">
                             <h5>Richeese Factory</h5>
                             <span style="font-size: 11px; color: var(--primary);">🌶️ Pedas Level</span>
@@ -232,8 +248,8 @@
         </aside>
 
     </div>
-    
 
+    <!-- ================= MODAL DETAIL OUTLET ================= -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('detailModal')" title="Kembali / Tutup">&times;</button>
@@ -242,6 +258,7 @@
                 <h2 id="modalTitle">Title</h2>
             </div>
 
+            <!-- GOOGLE MAPS OUTLET -->
             <div class="modal-section">
                 <h4><i class="fa-solid fa-map-location-dot" style="color: var(--primary);"></i> Peta Lokasi Google Maps</h4>
                 <div class="gmaps-container" style="margin-top: 8px;">
@@ -269,6 +286,7 @@
         </div>
     </div>
 
+    <!-- ================= MODAL POSTING BARU ================= -->
     <div class="modal-overlay" id="createModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeCreateModal()" title="Kembali / Tutup">&times;</button>
@@ -292,7 +310,6 @@
 
                 <div class="form-group">
                     <label>Foto Makanan</label>
-                    
                     <div class="upload-options" style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
                         <label for="postGalleryInput" class="btn-secondary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                             <i class="fa-solid fa-image"></i> Ambil dari Galeri
@@ -309,7 +326,7 @@
                     </div>
 
                     <div id="postImagePreviewContainer" style="display: none; margin-bottom: 8px;">
-                        <img id="postImagePreview" src="" alt="Preview Makanan" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; border: 2px solid var(--primary);">
+                        <img id="postImagePreview" src="" alt="Preview" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; border: 2px solid var(--primary);">
                     </div>
 
                     <input type="url" id="postImage" placeholder="Atau tempel Link / URL Gambar Makanan..." required>
@@ -317,9 +334,9 @@
 
                 <div class="form-group">
                     <label>Ulasan / Deskripsi Makanan</label>
-                    <textarea id="postDesc" rows="3" class="form-input-text" placeholder="Ceritakan rasa, porsi, dan kepuasan kamu saat makan di sini..." required></textarea>
+                    <textarea id="postDesc" rows="3" class="form-input-text" placeholder="Ceritakan rasa & kepuasan kamu..." required></textarea>
                 </div>
-                <button type="submit" class="btn-primary">Pamerkan</button>
+                <button type="submit" class="btn-primary">Publikasikan Makanan</button>
             </form>
         </div>
     </div>
