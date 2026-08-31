@@ -58,9 +58,43 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
 .search-box input { width: 100%; padding: 12px 20px 12px 40px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--bg-card); outline: none; }
 .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-.categories { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; margin-top: 15px; }
-.category-item { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; font-size: 11px; font-weight: 600; white-space: nowrap; }
-.category-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); font-size: 18px; border: 2px solid transparent; }
+.categories {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 5px 2px 8px;
+    margin-top: 15px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.categories::-webkit-scrollbar { display: none; }
+
+.category-item {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 80px;
+}
+.category-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    font-size: 18px;
+    border: 2px solid transparent;
+}
 .category-item.active .category-icon { border-color: var(--primary); background-color: #ecfdf5; }
 .category-item.active { color: var(--primary); }
 
@@ -150,9 +184,18 @@ body { background-color: var(--bg-body); color: var(--text-main); min-width: 320
     .user-card { display: none; }
 
     .main-content { padding: 16px; gap: 16px; min-width: 0; }
-    .categories { margin-top: 10px; gap: 14px; }
-    .category-item { font-size: 10px; }
-    .category-icon { width: 44px; height: 44px; font-size: 17px; }
+    .categories {
+        margin-top: 8px;
+        gap: 10px;
+        padding: 4px 0 10px;
+        width: 100%;
+        min-height: 74px;
+    }
+    .category-item {
+        font-size: 10px;
+        min-width: 82px;
+    }
+    .category-icon { width: 42px; height: 42px; font-size: 16px; }
     .feed-container { grid-template-columns: 1fr; gap: 14px; }
     .food-card img { height: clamp(180px, 52vw, 280px); }
 
