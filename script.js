@@ -3,14 +3,14 @@ let foodData = [
     {
         id: 1,
         title: "Mie Gacoan Malang 🍜",
-        author: "Arema Foodie",
+        author: "foodie",
         desc: "Kuliner mi pedas manis & gurih khas Mie Gacoan dengan aneka dimsum renyah.",
         category: "internasional",
         gmapsUrl: "https://maps.google.com/maps?q=Mie+Gacoan+Malang&t=&z=13&ie=UTF8&iwloc=&output=embed",
         image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80",
         comments: [
             { user: "Siti Foodie", text: "Mie Iblis level 3 favorit banget!" },
-            { user: "Budi", text: "Pangsit gorengnya kriuk dan melimpah." }
+            { user: "nisa", text: "Pangsit gorengnya kriuk dan melimpah." }
         ]
     },
     {
@@ -28,7 +28,7 @@ let foodData = [
     {
         id: 3,
         title: "Rawon Rampal Malang 🍲",
-        author: "Arema Foodie",
+        author: "foodie",
         desc: "Nasi rawon kuah kluwek hitam otentik legendaris di Malang sejak 1957.",
         category: "tradisional",
         gmapsUrl: "https://maps.google.com/maps?q=Rawon+Rampal+Malang&t=&z=13&ie=UTF8&iwloc=&output=embed",
@@ -38,7 +38,7 @@ let foodData = [
     {
         id: 4,
         title: "Pos Ketan Legenda 1967 🍡",
-        author: "Budi Santoso",
+        author: "foodie",
         desc: "Jajanan ketan tradisional hangat dengan aneka pilihan topping melimpah.",
         category: "streetfood",
         gmapsUrl: "https://maps.google.com/maps?q=Pos+Ketan+Legenda+1967+Malang&t=&z=13&ie=UTF8&iwloc=&output=embed",
@@ -51,9 +51,9 @@ let selectedCategory = 'semua';
 let activeModalOutletId = null;
 let cameraStream = null;
 
-let currentUserFullName = 'Budi Santoso';
-let currentUsername = 'budis';
-let currentUserEmail = 'budi@gmail.com';
+let currentUserFullName = 'Dewi Sartika';
+let currentUsername = 'dewis';
+let currentUserEmail = 'dewi@gmail.com';
 let profileImageSrc = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80';
 
 // TOGGLE SIDEBAR MOBILE (ANIMASI BERGESER SLIDE)
